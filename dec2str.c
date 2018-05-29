@@ -4,26 +4,25 @@
 
 #include <stdio.h>
 
-void PrintDec(unsigned int num)
-{
-    if (num >= 10)
-    {
-        PrintDec(num /10);      
-    }
-    putchar(48 + num % 10); 
-}
-
-int PrintDec2Str(unsigned int num, char *p)
+int Dec2Str(unsigned int num, char *p)
 {
     int pos = 0;
-
+#if 0
     if (num >= 10)
     {
-        pos = PrintDec2Str(num / 10, p);        
+        pos = Dec2Str(num / 10, p);        
     }
-    *(p + pos) = 48 + num % 10; 
+    *(p + pos) = '0' + num % 10; 
 
     return pos + 1;
+#elseif
+	if (num >= 10)
+	{
+		Dec2Str(num / 10, p);
+	}
+	*p++ = '0' + num % 10;
+	*p = '\0';
+#endif
 }
 
 int main(void)
@@ -35,7 +34,8 @@ int main(void)
 
     scanf("%d",&num);
 
-    str[PrintDec2Str(num, str)] = '\0';
+    //str[Dec2Str(num, str)] = '\0';
+	Dec2Str(num, str);
 
     printf("The num has been converted to string.\n");
 
