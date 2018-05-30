@@ -7,6 +7,8 @@
 #include<string.h>
 
 typedef enum bool{false, true}bool;
+#define INT_MAX 2147483647
+#define INT_MIN -2147483648
 
 int StrToInt(const char *str, int *nInt)
 {
@@ -47,7 +49,8 @@ int StrToInt(const char *str, int *nInt)
 			if ((*p) >= '0' && (*p) <= '9')
 			{
 				//*nInt = *nInt*10 + *p-'0';
-				if ((!hasMinus && (*p - '0') > (2147483647 - *nInt*10)) || (hasMinus && -(*p - '0') > (-2147483648 + *nInt*10)))
+				//if ((!hasMinus && (*p - '0') > (2147483647 - *nInt*10)) || (hasMinus && -(*p - '0') < (-2147483648 + *nInt*10)))
+				if ((!hasMinus && (*p - '0') > (INT_MAX - *nInt*10)) || (hasMinus && -(*p - '0') < (INT_MIN + *nInt*10)))
 				{
 					return 2;
 				}
