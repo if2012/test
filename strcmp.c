@@ -5,14 +5,18 @@ int MyStrcmp(char *source, char *dest)
     if (source == NULL || dest == NULL)
         return -1;
 
-    while (*source && *dest)
+    while (*source++ && *dest++)
     {
-        if (*source++ != *dest++)
+        if (*source > *dest)
+            return 1;
+        else if (*source < *dest)
             return -1;
     }
     
     if (!*source && !*dest)
         return 0;
+    else if (*source)
+        return 1;
     else
         return -1;
 }
